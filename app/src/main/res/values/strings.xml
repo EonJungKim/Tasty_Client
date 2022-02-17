@@ -1,0 +1,7 @@
+<resources>
+    <string name="str_app_name">Tasty</string>
+    <string name="str_shared_pref">SharedPreference</string>
+
+    <string name="id_icon_confirm">confirm</string>
+
+</resources>
