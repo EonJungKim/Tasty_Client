@@ -32,6 +32,8 @@ class MapLocUtil(var activity: MapActivity) {
 
         const val MIN_UDT_TIME = 10000L     // 최소 갱신 시간
         const val MIN_UDT_DST   = 10.0f     // 최소 갱신 거리
+
+        var isTracking = true
     }
 
     var locManager: LocationManager
@@ -40,19 +42,16 @@ class MapLocUtil(var activity: MapActivity) {
     lateinit var curLoc: MapPoint
     lateinit var centerCircle: MapCircle
 
-    var isTracking = true
-
     init {
         locListener = object: LocationListener {
             override fun onLocationChanged(location: Location) {
                 curLoc = MapPoint.mapPointWithGeoCoord(location.latitude, location.longitude)
-                activity.print("curLoc : $curLoc")
+
                 if (isTracking) {
-                    activity.print("CurLoc : " + curLoc)
                     centerCircle = MapCircle(curLoc, 1000, Color.argb(128, 255, 0, 0), Color.argb(200, 255, 255, 0))
                     centerCircle.tag = TAG_CIRC_CUR
 
-                    activity.binding.mapView.apply {
+                    activity.mapView.apply {
                         this.setMapCenterPoint(curLoc, true)
                         this.findCircleByTag(TAG_CIRC_CUR)
                     }
@@ -65,5 +64,6 @@ class MapLocUtil(var activity: MapActivity) {
 
     fun startUpdate() {
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_UDT_TIME, MIN_UDT_DST, locListener)
+        locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_UDT_TIME, MIN_UDT_DST, locListener)
     }
 }

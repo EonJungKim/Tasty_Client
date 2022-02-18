@@ -1,19 +1,18 @@
 package kr.co.eonjung.map.activity
 
-import android.location.LocationManager
 import android.os.Bundle
 import kr.co.eonjung.common.activity.BaseActivity
 import kr.co.eonjung.databinding.ActivityMapBinding
 import kr.co.eonjung.map.net.MapNet
 import kr.co.eonjung.map.util.MapLocUtil
-import net.daum.mf.map.api.MapCurrentLocationMarker
-import net.daum.mf.map.api.MapPoint
+import net.daum.mf.map.api.MapView
 
 class MapActivity : BaseActivity() {
 
     lateinit var binding: ActivityMapBinding
     lateinit var net: MapNet
     lateinit var locUtil: MapLocUtil
+    lateinit var mapView: MapView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +29,7 @@ class MapActivity : BaseActivity() {
 
     override fun initValues() {
         TAG = localClassName
+        mapView = MapView(this)
     }
 
     override fun initUtils() {
@@ -39,10 +39,6 @@ class MapActivity : BaseActivity() {
     }
 
     override fun initWidgets() {
-        binding.mapView.apply{
-//            this.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(35.815653, 127.103519), true)
-            this.setZoomLevel(7, true)
-            this.setCurrentLocationMarker(MapCurrentLocationMarker())
-        }
+       binding.mapViewContainer.addView(mapView)
     }
 }
