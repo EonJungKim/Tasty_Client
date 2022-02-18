@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tasty"
         android:usesCleartextTraffic="true">
+
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="8a383fb7e665337ae04914d4bd38fbb4" />
+
         <activity
             android:name=".map.activity.MapActivity"
             android:exported="false" />

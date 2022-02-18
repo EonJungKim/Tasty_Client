@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kr.co.eonjung.common.net.RetrofitClient
 import kr.co.eonjung.common.net.RetrofitService
-import kr.co.eonjung.common.utils.SharedPrefUtil
+import kr.co.eonjung.common.util.SharedPrefUtil
 
 open class BaseActivity : AppCompatActivity(), View.OnClickListener  {
 

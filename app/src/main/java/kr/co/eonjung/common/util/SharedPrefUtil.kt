@@ -1,4 +1,4 @@
-package kr.co.eonjung.common.utils
+package kr.co.eonjung.common.util
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE

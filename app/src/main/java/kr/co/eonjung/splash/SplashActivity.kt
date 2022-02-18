@@ -2,24 +2,19 @@ package kr.co.eonjung.splash
 
 import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kr.co.eonjung.R
 import kr.co.eonjung.common.activity.BaseActivity
-import kr.co.eonjung.login.activity.LoginActivity
+import kr.co.eonjung.map.activity.MapActivity
 
 class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
         init()
     }
 
@@ -33,19 +28,6 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun checkPermissions() {
-//        if (Build.VERSION.SDK_INT >= 26) { // 출처를 알 수 없는 앱 설정 화면 띄우기
-//            val pm: PackageManager = this.getPackageManager()
-//            Log.e("Package Name", packageName)
-//            if (!pm.canRequestPackageInstalls()) {
-//                startActivity(
-//                    Intent(
-//                        Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
-//                        Uri.parse("package:$packageName")
-//                    )
-//                )
-//            }
-//        }
-
         if (Build.VERSION.SDK_INT >= 23) { // 마시멜로(안드로이드 6.0) 이상 권한 체크
             TedPermission.with(this)
                 .setPermissionListener(permissionlistener)
@@ -64,7 +46,8 @@ class SplashActivity : BaseActivity() {
 
     private var permissionlistener: PermissionListener = object : PermissionListener {
         override fun onPermissionGranted() { // 권한 허가시 실행 할 내용
-            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+//            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            startActivity(Intent(this@SplashActivity, MapActivity::class.java))
         }
 
         override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {

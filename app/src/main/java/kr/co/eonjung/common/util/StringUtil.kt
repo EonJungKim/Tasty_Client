@@ -1,4 +1,4 @@
-package kr.co.eonjung.common.utils
+package kr.co.eonjung.common.util
 
 import java.text.SimpleDateFormat
 import java.util.*
