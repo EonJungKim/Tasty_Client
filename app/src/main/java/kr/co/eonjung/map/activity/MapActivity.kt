@@ -22,11 +22,6 @@ class MapActivity : BaseActivity() {
         init()
     }
 
-    override fun init() {
-        super.init()
-        locUtil.startUpdate()
-    }
-
     override fun initValues() {
         TAG = localClassName
         mapView = MapView(this)
@@ -40,5 +35,15 @@ class MapActivity : BaseActivity() {
 
     override fun initWidgets() {
        binding.mapViewContainer.addView(mapView)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        locUtil.startUpdate()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        locUtil.stopUpdate()
     }
 }

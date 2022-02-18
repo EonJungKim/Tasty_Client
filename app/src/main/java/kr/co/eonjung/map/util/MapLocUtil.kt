@@ -3,12 +3,11 @@ package kr.co.eonjung.map.util
 import android.annotation.SuppressLint
 import android.content.Context.LOCATION_SERVICE
 import android.graphics.Color
-import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import kr.co.eonjung.map.activity.MapActivity
-import net.daum.android.map.coord.MapCoordLatLng
 import net.daum.mf.map.api.MapCircle
+import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 
 
@@ -36,24 +35,24 @@ class MapLocUtil(var activity: MapActivity) {
         var isTracking = true
     }
 
-    var locManager: LocationManager
+    private var locManager: LocationManager
     var locListener: LocationListener
 
     lateinit var curLoc: MapPoint
     lateinit var centerCircle: MapCircle
 
     init {
-        locListener = object: LocationListener {
-            override fun onLocationChanged(location: Location) {
-                curLoc = MapPoint.mapPointWithGeoCoord(location.latitude, location.longitude)
+        locListener = LocationListener { location ->
+            curLoc = MapPoint.mapPointWithGeoCoord(location.latitude, location.longitude)
 
-                if (isTracking) {
-                    centerCircle = MapCircle(curLoc, 1000, Color.argb(128, 255, 0, 0), Color.argb(200, 255, 255, 0))
-                    centerCircle.tag = TAG_CIRC_CUR
+            if (isTracking) {
+                centerCircle = MapCircle(curLoc, 1000, Color.argb(128, 255, 0, 0), Color.argb(200, 255, 255, 0))
+                centerCircle.tag = TAG_CIRC_CUR
 
-                    activity.mapView.apply {
-                        this.setMapCenterPoint(curLoc, true)
-                        this.findCircleByTag(TAG_CIRC_CUR)
+                activity.mapView.apply {
+                    this.setMapCenterPoint(curLoc, true)
+                    if (this.findCircleByTag(TAG_CIRC_CUR) == null) {
+                        this.addCircle(centerCircle)
                     }
                 }
             }
@@ -63,7 +62,17 @@ class MapLocUtil(var activity: MapActivity) {
     }
 
     fun startUpdate() {
-        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_UDT_TIME, MIN_UDT_DST, locListener)
-        locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_UDT_TIME, MIN_UDT_DST, locListener)
+        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER      , MIN_UDT_TIME, MIN_UDT_DST, locListener)
+        locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER  , MIN_UDT_TIME, MIN_UDT_DST, locListener)
+    }
+
+    fun stopUpdate() {
+       locManager.removeUpdates(locListener)
+    }
+
+    fun addPoiList(poiList: List<MapPOIItem>) {
+        for (poi in poiList) {
+
+        }
     }
 }
