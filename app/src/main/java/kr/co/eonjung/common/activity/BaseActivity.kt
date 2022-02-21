@@ -18,10 +18,14 @@ open class BaseActivity : AppCompatActivity(), View.OnClickListener  {
     protected lateinit var finishIntent: Intent
 
     protected open fun init() {
-        initUtils()
-        initValues()
-        initWidgets()
-        setFinishIntent()
+        try {
+            initUtils()
+            initValues()
+            initWidgets()
+            setFinishIntent()
+        } catch (e: Exception) {
+            print(e);
+        }
     }
 
     protected open fun initUtils() {

@@ -6,10 +6,11 @@ object DefineUrl {
     const val URL_BASE = "http://192.168.0.27:8088/tasty/"
 
     // Associated with user
-    const val URL_USER_LOGIN    = "user/test.do"
+    const val URL_USER_LOGIN    = "user/login.do"
     const val URL_LOGIN_CHK_ID  = "user/chkId.do"
     const val URL_LOGIN_CHK_PWD = "user/chkPwd.do"
 
     // Associated with map
-    const val URL_MAP_GET = "map/getMenuOpt.do"
+    const val URL_MAP_POI_LIST = "map/POIList.do"
+    const val URL_MAP_POI_INFO = "map/POIInfo.do"
 }
