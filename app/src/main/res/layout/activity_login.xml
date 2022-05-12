@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.activity.LoginActivity">
+    tools:context=".login.activity.LoginActivity"
+    tools:ignore="HardcodedText,Autofill,TextFields,SpUsage">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,14 +38,29 @@
                         android:id="@+id/edtId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="아이디"/>
+                        android:paddingStart="8dp"
+                        android:text="jek888"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:hint="ID 입력"
+                        android:inputType="text"
+                        android:gravity="center_vertical"
+                        android:background="@color/white"/>
 
                     <EditText
                         android:id="@+id/edtPwd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:text="1234"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:hint="PWD 입력"
                         android:inputType="textPassword"
-                        android:hint="비밀번호"/>
+                        android:gravity="center_vertical"
+                        android:background="@color/white" />
                 </LinearLayout>
 
                 <Button
@@ -52,8 +68,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="login"
-                    android:textSize="20dp"/>
+                    android:text="@string/str_login"
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -61,14 +77,22 @@
                 android:layout_height="50dp">
 
                 <CheckBox
-                    android:id="@+id/ckSaveId"
+                    android:id="@+id/ckSavId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:text="ID 저장" />
-            </RelativeLayout>
 
+                <Button
+                    android:id="@+id/btnFindIdPwd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:text="ID/PWD 조회"
+                    android:textColor="@color/white"
+                    android:textSize="17dp" />
+            </RelativeLayout>
         </LinearLayout>
 
         <Space

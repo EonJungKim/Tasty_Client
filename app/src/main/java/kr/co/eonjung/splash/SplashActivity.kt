@@ -13,18 +13,13 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kr.co.eonjung.R
 import kr.co.eonjung.common.activity.BaseActivity
+import kr.co.eonjung.login.activity.LoginActivity
 import kr.co.eonjung.map.activity.MapActivity
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.security.Signature
 
 class SplashActivity : BaseActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
-
-        init()
-    }
 
     override fun init() {
         super.init()
@@ -33,6 +28,10 @@ class SplashActivity : BaseActivity() {
 
     override fun initValues() {
         TAG = localClassName
+    }
+
+    override fun initWidgets() {
+        setContentView(R.layout.activity_splash)
     }
 
     private fun checkPermissions() {
@@ -54,8 +53,8 @@ class SplashActivity : BaseActivity() {
 
     private var permissionlistener: PermissionListener = object : PermissionListener {
         override fun onPermissionGranted() { // 권한 허가시 실행 할 내용
-//            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-            startActivity(Intent(this@SplashActivity, MapActivity::class.java))
+            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+//            startActivity(Intent(this@SplashActivity, MapActivity::class.java))
             finish()
         }
 

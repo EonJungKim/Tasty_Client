@@ -1,6 +1,7 @@
 package kr.co.eonjung.common.activity
 
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -16,6 +17,12 @@ open class BaseActivity : AppCompatActivity(), View.OnClickListener  {
     lateinit var sharedPrefUtil: SharedPrefUtil
     lateinit var retrofitService: RetrofitService
     protected lateinit var finishIntent: Intent
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        init()
+    }
 
     protected open fun init() {
         try {

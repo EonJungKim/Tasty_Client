@@ -1,57 +1,66 @@
 package kr.co.eonjung.map.activity
 
-import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
-import kr.co.eonjung.R
 import kr.co.eonjung.common.activity.BaseActivity
 import kr.co.eonjung.databinding.ActivityMapBinding
 import kr.co.eonjung.map.net.MapNet
+import kr.co.eonjung.map.util.MapButtonUtil
 import kr.co.eonjung.map.util.MapLocUtil
-import net.daum.mf.map.api.MapPOIItem
-import net.daum.mf.map.api.MapPoint
+import kr.co.eonjung.map.util.MapViewUtil
 import net.daum.mf.map.api.MapView
 
 class MapActivity : BaseActivity() {
 
+    companion object {
+        const val STATE_CDE_NER = 0
+        const val STATE_CDE_SCH = 1
+        const val STATE_CDE_ADD = 2
+        const val STATE_CDE_UDT = 3
+        var state = STATE_CDE_SCH
+    }
+
     lateinit var binding: ActivityMapBinding
-    lateinit var net: MapNet
-    lateinit var locUtil: MapLocUtil
     lateinit var mapView: MapView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMapBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    lateinit var net: MapNet
+    lateinit var mapViewUtil: MapViewUtil
+    lateinit var btnUtil: MapButtonUtil
+    lateinit var locUtil: MapLocUtil
 
-        init()
+    override fun init() {
+        super.init()
+        Handler(Looper.getMainLooper()).postDelayed({
+            mapViewUtil.initMap()
+        }, 2000)
     }
 
     override fun initValues() {
         TAG = localClassName
-        mapView = MapView(this)
+        binding = ActivityMapBinding.inflate(layoutInflater)
     }
 
     override fun initUtils() {
         super.initUtils()
         net = MapNet(this)
 
+        mapViewUtil = MapViewUtil(this)
+        btnUtil = MapButtonUtil(this)
         locUtil = MapLocUtil(this)
     }
 
     override fun initWidgets() {
+        setContentView(binding.root)
+
         binding.mapViewContainer.addView(mapView)
-        binding.btnTest.setOnClickListener(this)
+        btnUtil.btnInit()
     }
 
     override fun onResume() {
         super.onResume()
         locUtil.startUpdate()
-
-        val poiItem = MapPOIItem()
-        poiItem.mapPoint = MapPoint.mapPointWithGeoCoord(35.794136, 127.128357)
-        poiItem.tag = -1
-        poiItem.markerType = MapPOIItem.MarkerType.BluePin
-        mapView.addPOIItem(poiItem)
+        mapViewUtil.initMap()
     }
 
     override fun onPause() {
@@ -60,20 +69,22 @@ class MapActivity : BaseActivity() {
     }
 
     override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.btnTest -> {
-                val poiItem = mapView.findPOIItemByTag(-1)
+        btnUtil.onClick(view)
+    }
 
-                if (poiItem == null) {
-                    val poiItem = MapPOIItem()
-                    poiItem.mapPoint = MapPoint.mapPointWithGeoCoord(35.794136, 127.128357)
-                    poiItem.tag = -1
-                    poiItem.itemName = "Test POI"
-                    poiItem.markerType = MapPOIItem.MarkerType.BluePin
-                    mapView.addPOIItem(poiItem)
-                } else {
-                    poiItem.mapPoint = MapPoint.mapPointWithGeoCoord(35.793777, 127.130154)
-                }
+    fun chgState() {
+        when (state) {
+            STATE_CDE_NER -> {
+
+            }
+            STATE_CDE_SCH -> {
+
+            }
+            STATE_CDE_ADD -> {
+
+            }
+            STATE_CDE_UDT -> {
+
             }
         }
     }

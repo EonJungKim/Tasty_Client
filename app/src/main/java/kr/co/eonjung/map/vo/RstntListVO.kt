@@ -2,9 +2,10 @@ package kr.co.eonjung.map.vo
 
 import com.google.gson.annotations.SerializedName
 import kr.co.eonjung.common.vo.StatusVO
-import kr.co.eonjung.map.model.POIInfoModel
+import kr.co.eonjung.map.model.RstntModel
 
-data class POIInfoVO (
+data class RstntListVO (
+
     @SerializedName("status") val status: StatusVO,
-    @SerializedName("poiInfo") val poiInfo: POIInfoModel
+    @SerializedName("rstntList") val rstntList: List<RstntModel>
 )

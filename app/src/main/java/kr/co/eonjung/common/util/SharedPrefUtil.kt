@@ -47,15 +47,17 @@ class SharedPrefUtil(private val context: Context) {
     fun setUserInfo(userInfo: UserInfoModel) {
         val pref: SharedPreferences = getPref()
         pref.edit {
-            putString("user_id", userInfo.id)
-            putString("user_name", userInfo.name)
+            putString("user_id", userInfo.userId)
+            putString("user_name", userInfo.userNm)
             commit()
         }
     }
 
-    fun getUserInfo(): UserInfoModel {
+    fun savLoginId(id: String) {
         val pref: SharedPreferences = getPref()
-
-        return UserInfoModel(pref.getString("user_id", DEF_STR)!!, pref.getString("user_name", DEF_STR)!!)
+        pref.edit {
+            putString("saved_id", id)
+            commit()
+        }
     }
 }

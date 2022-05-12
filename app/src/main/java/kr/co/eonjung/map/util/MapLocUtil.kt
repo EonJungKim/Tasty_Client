@@ -1,22 +1,16 @@
 package kr.co.eonjung.map.util
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context.LOCATION_SERVICE
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Build
-import android.os.Handler
-import androidx.core.app.ActivityCompat
-import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.collect.MapMaker
 import kr.co.eonjung.map.activity.MapActivity
 import net.daum.mf.map.api.MapCircle
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
-import kotlin.math.acos
 
 /**
  * @파일제목   : MapLocUtil
