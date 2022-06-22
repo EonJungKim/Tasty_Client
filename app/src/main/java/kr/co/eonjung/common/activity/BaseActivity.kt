@@ -7,13 +7,19 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Room
+import kr.co.eonjung.R
+import kr.co.eonjung.common.db.TastyDatabase
+import kr.co.eonjung.common.dialog.AlertDialog
 import kr.co.eonjung.common.net.RetrofitClient
 import kr.co.eonjung.common.net.RetrofitService
+import kr.co.eonjung.common.util.DialogUtil
 import kr.co.eonjung.common.util.SharedPrefUtil
 
 open class BaseActivity : AppCompatActivity(), View.OnClickListener  {
 
     protected lateinit var TAG: String
+    lateinit var dialogUtil: DialogUtil
     lateinit var sharedPrefUtil: SharedPrefUtil
     lateinit var retrofitService: RetrofitService
     protected lateinit var finishIntent: Intent
@@ -36,6 +42,7 @@ open class BaseActivity : AppCompatActivity(), View.OnClickListener  {
     }
 
     protected open fun initUtils() {
+        dialogUtil = DialogUtil(this)
         sharedPrefUtil = SharedPrefUtil(this)
         retrofitService = RetrofitClient.getInstance().create(RetrofitService::class.java)
     }
@@ -70,5 +77,9 @@ open class BaseActivity : AppCompatActivity(), View.OnClickListener  {
 
     fun getText(textView: TextView): String {
         return textView.text.toString().trim()
+    }
+
+    fun getDb(): TastyDatabase {
+        return Room.databaseBuilder(this, TastyDatabase::class.java, resources.getString(R.string.str_database)).build()
     }
 }

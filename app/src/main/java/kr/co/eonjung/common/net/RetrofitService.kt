@@ -1,5 +1,6 @@
 package kr.co.eonjung.common.net
 
+import kr.co.eonjung.common.db.entity.Region
 import kr.co.eonjung.common.define.DefineUrl
 import kr.co.eonjung.common.vo.BoolValVO
 import kr.co.eonjung.common.vo.IntValVO
@@ -7,10 +8,15 @@ import kr.co.eonjung.common.vo.StrValVO
 import kr.co.eonjung.login.vo.LoginVO
 import kr.co.eonjung.map.vo.RstntInfoVO
 import kr.co.eonjung.map.vo.RstntListVO
+import kr.co.eonjung.splash.vo.RegionVO
 import retrofit2.Call
 import retrofit2.http.*
 
 interface RetrofitService {
+
+    // Initialize
+    @GET(DefineUrl.URL_INIT_REGION)
+    fun getResion() : Call<RegionVO>
 
     // Login
     // 사용자 로그인

@@ -1,6 +1,7 @@
 package kr.co.eonjung.map.net
 
 import android.widget.Toast
+import kr.co.eonjung.common.net.BaseNet
 import kr.co.eonjung.map.activity.MapActivity
 import kr.co.eonjung.map.vo.RstntInfoVO
 import kr.co.eonjung.map.vo.RstntListVO
@@ -8,7 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MapNet(val activity: MapActivity) {
+class MapNet(val activity: MapActivity) : BaseNet(activity) {
 
     fun getRstntList(category: String?, lat: Double, lon: Double) {
         activity.retrofitService.getRstntList(category!!, lat, lon).enqueue(object: Callback<RstntListVO> {
@@ -27,8 +28,7 @@ class MapNet(val activity: MapActivity) {
             }
 
             override fun onFailure(call: Call<RstntListVO>, t: Throwable) {
-                Toast.makeText(activity, "서버와의 통신에 실패하였습니다.", Toast.LENGTH_SHORT).show()
-                activity.print(t.toString())
+                netFail(t)
             }
         })
     }
@@ -50,8 +50,7 @@ class MapNet(val activity: MapActivity) {
             }
 
             override fun onFailure(call: Call<RstntInfoVO>, t: Throwable) {
-                Toast.makeText(activity, "서버와의 통신에 실패하였습니다.", Toast.LENGTH_SHORT).show()
-                activity.print(t.toString())
+                netFail(t)
             }
         })
     }

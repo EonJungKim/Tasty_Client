@@ -1,7 +1,8 @@
 <resources>
     <!-- System -->
     <string name="str_app_name">Tasty</string>
-    <string name="str_shared_pref">SharedPreference</string>
+    <string name="str_shared_pref">TastySharedPreference</string>
+    <string name="str_database">TastyDatabase</string>
 
     <!-- Button -->
     <string name="str_login">로그인</string>
@@ -20,5 +21,4 @@
     <string name="str_pwd">비밀번호</string>
 
     <string name="id_icon_confirm">confirm</string>
-
 </resources>

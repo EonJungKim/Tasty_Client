@@ -3,6 +3,9 @@ package kr.co.eonjung.map.activity
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import kr.co.eonjung.R
 import kr.co.eonjung.common.activity.BaseActivity
 import kr.co.eonjung.databinding.ActivityMapBinding
 import kr.co.eonjung.map.net.MapNet
@@ -14,12 +17,13 @@ import net.daum.mf.map.api.MapView
 class MapActivity : BaseActivity() {
 
     companion object {
-        const val STATE_CDE_NER = 0
-        const val STATE_CDE_SCH = 1
-        const val STATE_CDE_ADD = 2
-        const val STATE_CDE_UDT = 3
-        var state = STATE_CDE_SCH
+        const val STAT_CDE_NER = 0  // 주변
+        const val STAT_CDE_SCH = 1  // 조회
+        const val STAT_CDE_ADD = 2  // 등록
+        const val STAT_CDE_UDT = 3  // 갱신
     }
+
+    var state = STAT_CDE_SCH
 
     lateinit var binding: ActivityMapBinding
     lateinit var mapView: MapView
@@ -31,9 +35,7 @@ class MapActivity : BaseActivity() {
 
     override fun init() {
         super.init()
-        Handler(Looper.getMainLooper()).postDelayed({
-            mapViewUtil.initMap()
-        }, 2000)
+        Handler(Looper.getMainLooper()).postDelayed({ mapViewUtil.initMap() }, 2000)
     }
 
     override fun initValues() {
@@ -72,18 +74,20 @@ class MapActivity : BaseActivity() {
         btnUtil.onClick(view)
     }
 
-    fun chgState() {
-        when (state) {
-            STATE_CDE_NER -> {
+    fun chgState(state: Int) {
+        this.state = state
+        btnUtil.chgBtnVisibility()
+        when (this.state) {
+            STAT_CDE_NER -> {
+                mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
+            }
+            STAT_CDE_SCH -> {
+                mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
+            }
+            STAT_CDE_ADD -> {
 
             }
-            STATE_CDE_SCH -> {
-
-            }
-            STATE_CDE_ADD -> {
-
-            }
-            STATE_CDE_UDT -> {
+            STAT_CDE_UDT -> {
 
             }
         }

@@ -1,5 +1,6 @@
 package kr.co.eonjung.map.util
 
+import android.view.View
 import kr.co.eonjung.map.activity.MapActivity
 import kr.co.eonjung.map.model.RstntModel
 import net.daum.mf.map.api.MapPOIItem
@@ -82,5 +83,34 @@ class MapViewUtil(private val activity: MapActivity) {
 
     fun chgAllMarkersVisible(visible: Boolean) {
         chgMarkersVisible(poiTagList, visible)
+    }
+
+    fun chgState() {
+        activity.mapView.apply {
+            setShowCurrentLocationMarker(false)
+            setCurrentLocationRadius(MapLocUtil.CENT_CIRC_DIST)
+            setCurrentLocationRadiusStrokeColor(MapLocUtil.CENT_CIRC_STRK)
+            setCurrentLocationRadiusFillColor(MapLocUtil.CENT_CIRC_FILL)
+
+            when (activity.state) {
+                MapActivity.STAT_CDE_NER -> {
+                    MapView.setMapTilePersistentCacheEnabled(true)
+                    currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading
+                    setShowCurrentLocationMarker(true)
+                    setCurrentLocationRadius(MapLocUtil.CENT_CIRC_DIST)
+                    setCurrentLocationRadiusStrokeColor(MapLocUtil.CENT_CIRC_STRK)
+                    setCurrentLocationRadiusFillColor(MapLocUtil.CENT_CIRC_FILL)
+                }
+                MapActivity.STAT_CDE_SCH -> {
+                    MapView.setMapTilePersistentCacheEnabled(true)
+                    currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
+                }
+                MapActivity.STAT_CDE_ADD -> {
+                }
+                MapActivity.STAT_CDE_UDT -> {
+                }
+            }
+
+        }
     }
 }

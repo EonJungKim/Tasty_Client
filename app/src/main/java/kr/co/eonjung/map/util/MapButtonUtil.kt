@@ -15,7 +15,7 @@ class MapButtonUtil(private val activity: MapActivity) {
             btnGPS.setOnClickListener(activity)
             btnAddRstnt.setOnClickListener(activity)
             btnSelLoc.setOnClickListener(activity)
-            btnAddCancel.setOnClickListener(activity)
+            btnCanclSelLoc.setOnClickListener(activity)
         }
     }
 
@@ -39,19 +39,40 @@ class MapButtonUtil(private val activity: MapActivity) {
                 activity.binding.apply {
                     ivCenter.visibility = View.VISIBLE
                     btnSelLoc.visibility = View.VISIBLE
-                    btnAddCancel.visibility = View.VISIBLE
+                    btnCanclSelLoc.visibility = View.VISIBLE
                 }
             }
             R.id.btnSelLoc -> {
                 Toast.makeText(activity, "Add restaurant button is clicked.", Toast.LENGTH_SHORT).show()
             }
-            R.id.btnAddCancel -> {
+            R.id.btnCanclSelLoc -> {
                 Toast.makeText(activity, "Add restaurant button is clicked.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    fun chgVisibility() {
+    fun chgBtnVisibility() {
+        activity.binding.apply {
+            btnAddRstnt.visibility = View.GONE
+            btnSelLoc.visibility = View.GONE
+            btnCanclSelLoc.visibility = View.GONE
 
+            when (activity.state) {
+                MapActivity.STAT_CDE_NER -> {
+                    btnAddRstnt.visibility = View.VISIBLE
+                }
+                MapActivity.STAT_CDE_SCH -> {
+                    btnAddRstnt.visibility = View.VISIBLE
+                }
+                MapActivity.STAT_CDE_ADD -> {
+                    btnSelLoc.visibility = View.VISIBLE
+                    btnCanclSelLoc.visibility = View.VISIBLE
+                }
+                MapActivity.STAT_CDE_UDT -> {
+                    btnSelLoc.visibility = View.VISIBLE
+                    btnCanclSelLoc.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 }
